@@ -9,6 +9,7 @@ const app = express();
 const DB = "mongodb+srv://souemon:amazonclone@cluster0.ifklh.mongodb.net/?retryWrites=true&w=majority";
 
 // MIDDLEWARE 
+app.use(express.json());
 app.use(authRouter);
 
 // DATABASE CONNECTIONS 
