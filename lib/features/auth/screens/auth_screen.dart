@@ -1,6 +1,7 @@
 import 'package:amazon_clone/common/widgets/custom_button.dart';
 import 'package:amazon_clone/common/widgets/custom_text_field.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/auth/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 enum Auth { signIn, signUp }
@@ -17,7 +18,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Auth _auth = Auth.signUp;
   final _signupFormKey = GlobalKey<FormState>();
   final _signinFormKey = GlobalKey<FormState>();
-
+  final AuthService authService = AuthService();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -28,6 +29,14 @@ class _AuthScreenState extends State<AuthScreen> {
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+  }
+
+  void signUpUser() {
+    authService.signUpUser(
+        context: context,
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text);
   }
 
   @override
@@ -92,7 +101,13 @@ class _AuthScreenState extends State<AuthScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        CustomButton(text: "Sign Up", onTap: () {})
+                        CustomButton(
+                            text: "Sign Up",
+                            onTap: () {
+                              if (_signupFormKey.currentState!.validate()) {
+                                signUpUser();
+                              }
+                            })
                       ],
                     ),
                   )),
@@ -117,7 +132,7 @@ class _AuthScreenState extends State<AuthScreen> {
             ),
             if (_auth == Auth.signIn)
               Form(
-                  key: _signupFormKey,
+                  key: _signinFormKey,
                   child: Container(
                     color: GlobalVariables.backgroudColor,
                     padding: const EdgeInsets.all(8),
