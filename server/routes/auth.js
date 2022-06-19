@@ -2,6 +2,7 @@ const express = require("express");
 const User = require("../model/user");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const auth_middleware = require("../middleware/auth_middleware");
 
 const authRouter = express.Router();
 
@@ -46,4 +47,35 @@ authRouter.post("/api/signin", async (req, res) => {
    }
 })
 
+// TOKEN VALIDATION 
+authRouter.post("/istokenvalid", async(req, res) => {
+     try {
+        // GET TOKEN VIA HEADER 
+        const token = req.header("x-auth-token");
+        // IF NO TOKEN PASSED THEN -
+        if(!token) return res.json(false);
+
+        // IF TOKEN FOUND THEN VERIFY IT 
+        const verifiedToken = jwt.verify(token, "passwordkey");
+        // IF TOKEN ISNT VERIFIED 
+        if(!verifiedToken) return res.json(false);
+
+        // IF VERIFIEDTOKEN FOUND THEN CHECK FOR USER 
+        const user = User.findById(verifiedToken.id);
+        // IF USER DOES NOT EXIST 
+        if(!user) return res.json(false);
+
+        // IF THERE ARE NO FALSE THEN 
+        res.json(true);
+
+     } catch (e) {
+        res.status(500).json({ error: e.message });
+     }
+})
+
+// GET USER DATA API
+ authRouter.get("/", auth_middleware, async(req, res) => {
+    const user = await User.findById(req.user);
+    req.json({...user._doc, token: req.token });
+ })
 module.exports = authRouter;

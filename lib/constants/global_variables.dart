@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const uri = 'http://192.168.1.100:3000';
+const uri = 'http://192.168.1.103:3000';
 
 class GlobalVariables {
   // COLORS
@@ -15,7 +15,8 @@ class GlobalVariables {
   static const secondaryColor = Color.fromRGBO(255, 153, 0, 1);
   static const backgroudColor = Colors.white;
   static const Color greyBackgroundColor = Color(0xffebecee);
-  static var selectedNavbar = Colors.black87;
+  static var selectedNavBarColor = Colors.cyan[800]!;
+  static var unselectedNavbarColor = Colors.black87;
 
   // STATIC IMAGES
   static const List<String> carouselImages = [
