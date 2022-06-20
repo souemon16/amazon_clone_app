@@ -76,6 +76,8 @@ authRouter.post("/istokenvalid", async(req, res) => {
 // GET USER DATA API
  authRouter.get("/", auth_middleware, async(req, res) => {
     const user = await User.findById(req.user);
-    req.json({...user._doc, token: req.token });
+    res.json({...user._doc, token: req.token });
  })
+
+
 module.exports = authRouter;

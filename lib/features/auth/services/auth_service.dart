@@ -8,7 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:amazon_clone/constants/error_handling.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/constants/utills.dart';
-import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:amazon_clone/models/user.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 
