@@ -12,6 +12,14 @@ class GlobalVariables {
     1.0
   ]);
 
+  static const addressBarGradient = LinearGradient(colors: [
+    Color.fromARGB(255, 114, 226, 221),
+    Color.fromARGB(255, 162, 236, 233)
+  ], stops: [
+    0.5,
+    1.0
+  ]);
+
   static const secondaryColor = Color.fromRGBO(255, 153, 0, 1);
   static const backgroudColor = Colors.white;
   static const Color greyBackgroundColor = Color(0xffebecee);
