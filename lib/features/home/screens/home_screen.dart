@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
+
+import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/home/widgets/address_box.dart';
 import 'package:amazon_clone/features/home/widgets/carousel_home.dart';
 import 'package:amazon_clone/features/home/widgets/categories_list.dart';
 import 'package:amazon_clone/features/home/widgets/deal_of_the_day.dart';
-import 'package:flutter/material.dart';
-
-import 'package:amazon_clone/constants/global_variables.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home';
