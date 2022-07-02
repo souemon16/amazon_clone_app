@@ -1,8 +1,11 @@
 // IMPORT FROM PACKAGES 
 const express = require("express");
 const mongoose = require("mongoose");
+
 // IMPORT FROM OTHER FILES 
 const authRouter = require("./routes/auth");
+const adminRouter = require("./routes/admin");
+
 // INIT 
 const PORT = 3000;
 const app = express();
@@ -11,6 +14,7 @@ const DB = "mongodb+srv://souemon:amazonclone@cluster0.ifklh.mongodb.net/?retryW
 // MIDDLEWARE 
 app.use(express.json());
 app.use(authRouter);
+app.use(adminRouter);
 
 // DATABASE CONNECTIONS 
 mongoose.connect(DB).then(() => {
