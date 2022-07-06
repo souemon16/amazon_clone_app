@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
+
 import 'package:amazon_clone/common/widgets/bottom_bar.dart';
 import 'package:amazon_clone/features/admin/screens/add_product_screen.dart';
 import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
+import 'package:amazon_clone/features/home/screens/category_deals_screen.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
-import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -17,6 +19,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case BottomBar.routeName:
       return MaterialPageRoute(
           settings: routeSettings, builder: (_) => const BottomBar());
+
+    case CategoryDealScreen.routeName:
+      var category = routeSettings.arguments as String;
+      return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => CategoryDealScreen(
+                category: category,
+              ));
 
     case AddProductScreen.routeName:
       return MaterialPageRoute(

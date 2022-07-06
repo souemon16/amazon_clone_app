@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 // IMPORT FROM OTHER FILES 
 const authRouter = require("./routes/auth");
 const adminRouter = require("./routes/admin");
+const productRouter = require("./routes/product");
 
 // INIT 
 const PORT = 3000;
@@ -15,6 +16,7 @@ const DB = "mongodb+srv://souemon:amazonclone@cluster0.ifklh.mongodb.net/?retryW
 app.use(express.json());
 app.use(authRouter);
 app.use(adminRouter);
+app.use(productRouter);
 
 // DATABASE CONNECTIONS 
 mongoose.connect(DB).then(() => {
