@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
+final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 void showSnackbar(BuildContext context, String msg) {
+  // scaffoldMessengerKey.currentState!.showSnackBar(SnackBar(content: Text(msg)));
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
 }
 

@@ -1,3 +1,4 @@
+import 'package:amazon_clone/features/search/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:amazon_clone/common/widgets/bottom_bar.dart';
@@ -20,6 +21,10 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
           settings: routeSettings, builder: (_) => const BottomBar());
 
+    case AddProductScreen.routeName:
+      return MaterialPageRoute(
+          settings: routeSettings, builder: (_) => const AddProductScreen());
+
     case CategoryDealScreen.routeName:
       var category = routeSettings.arguments as String;
       return MaterialPageRoute(
@@ -28,9 +33,13 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
                 category: category,
               ));
 
-    case AddProductScreen.routeName:
+    case SearchScreen.routeName:
+      var searchQuery = routeSettings.arguments as String;
       return MaterialPageRoute(
-          settings: routeSettings, builder: (_) => const AddProductScreen());
+          settings: routeSettings,
+          builder: (_) => SearchScreen(
+                searchQuery: searchQuery,
+              ));
 
     default:
       return MaterialPageRoute(

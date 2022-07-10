@@ -1,3 +1,4 @@
+import 'package:amazon_clone/constants/utills.dart';
 import 'package:amazon_clone/features/admin/screens/admin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final AuthService authService = AuthService();
+
   @override
   void initState() {
     super.initState();
@@ -35,6 +37,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        scaffoldMessengerKey: scaffoldMessengerKey,
         debugShowCheckedModeBanner: false,
         title: 'Amazon Clone',
         theme: ThemeData(

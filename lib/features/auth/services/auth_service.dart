@@ -51,6 +51,7 @@ class AuthService {
       required String email,
       required String password}) async {
     try {
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
       http.Response res = await http.post(Uri.parse("$uri/api/signin"),
           body: jsonEncode({"email": email, "password": password}),
           headers: <String, String>{
@@ -62,7 +63,7 @@ class AuthService {
           context: context,
           onSuccess: () async {
             SharedPreferences prefs = await SharedPreferences.getInstance();
-            Provider.of<UserProvider>(context, listen: false).setUser(res.body);
+            userProvider.setUser(res.body);
             await prefs.setString(
                 "x-auth-token", jsonDecode(res.body)["token"]);
             Navigator.pushNamedAndRemoveUntil(
@@ -75,6 +76,7 @@ class AuthService {
 
   // GET USER DATA
   void getUserData(BuildContext context) async {
+    var userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
       // SET SHAREDPREFERENCES INSTANCE
       SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -103,8 +105,6 @@ class AuthService {
               'x-auth-token': token
             });
 
-        // ignore: use_build_context_synchronously
-        var userProvider = Provider.of<UserProvider>(context, listen: false);
         userProvider.setUser(userResponse.body);
       }
     } catch (e) {

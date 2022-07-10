@@ -36,26 +36,27 @@ class _CategoryDealScreenState extends State<CategoryDealScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return productList == null
-        ? const Lodaer()
-        : Scaffold(
-            appBar: PreferredSize(
-              preferredSize: const Size.fromHeight(50),
-              child: AppBar(
-                flexibleSpace: Container(
-                  decoration: const BoxDecoration(
-                      gradient: GlobalVariables.appBarGradient),
-                ),
-                title: Text(
-                  widget.category,
-                  style: const TextStyle(color: Colors.black),
-                ),
-              ),
-            ),
-            body: Column(children: [
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration:
+                const BoxDecoration(gradient: GlobalVariables.appBarGradient),
+          ),
+          title: Text(
+            widget.category,
+            style: const TextStyle(color: Colors.black),
+          ),
+        ),
+      ),
+      body: productList == null
+          ? const Lodaer()
+          : Column(children: [
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                alignment: Alignment.topLeft,
                 child: Text(
                   "Keep shopping for ${widget.category}",
                   style: const TextStyle(fontSize: 20),
@@ -104,6 +105,6 @@ class _CategoryDealScreenState extends State<CategoryDealScreen> {
                     }),
               )
             ]),
-          );
+    );
   }
 }

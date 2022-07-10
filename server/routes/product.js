@@ -12,4 +12,15 @@ productRouter.get("/api/products", auth_middleware ,async (req, res) => {
     }
 })
 
+productRouter.get("/api/products/search/:name", auth_middleware, async (req, res) => {
+    try {
+        const products = await Product.find({ 
+            name: { $regex: req.params.name, $options: "i" }
+         })
+        res.json(products);
+    } catch (e) {
+        res.status(500).json({ error: e.message })
+    }
+})
+
 module.exports = productRouter;
