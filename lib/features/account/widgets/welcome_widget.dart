@@ -10,6 +10,7 @@ class WelcomeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
+
     return Container(
       decoration: const BoxDecoration(gradient: GlobalVariables.appBarGradient),
       padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),

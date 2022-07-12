@@ -27,7 +27,8 @@ class SearchServices {
           context: context,
           onSuccess: () {
             for (int i = 0; i < jsonDecode(res.body).length; i++) {
-              productList.add(Product.fromJson(jsonDecode(res.body)[i]));
+              productList
+                  .add(Product.fromJson(jsonEncode(jsonDecode(res.body)[i])));
             }
           });
     } catch (e) {

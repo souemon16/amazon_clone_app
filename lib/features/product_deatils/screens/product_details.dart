@@ -1,3 +1,5 @@
+import 'package:amazon_clone/features/product_deatils/services/product_details_services.dart';
+import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +9,7 @@ import 'package:amazon_clone/common/widgets/star.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:amazon_clone/common/widgets/custom_button.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetails extends StatefulWidget {
   static const String routeName = '/product-details';
@@ -19,6 +22,28 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
+  final ProductDetailServices productDetailServices = ProductDetailServices();
+
+  double avgRating = 0;
+  double myRating = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    double totalRating = 0;
+    for (var i = 0; i < widget.product.rating!.length; i++) {
+      totalRating += widget.product.rating![i].rating;
+      if (widget.product.rating![i].userId ==
+          Provider.of<UserProvider>(context, listen: false).user.id) {
+        myRating = widget.product.rating![i].rating;
+      }
+    }
+
+    if (totalRating != 0) {
+      avgRating = totalRating / widget.product.rating!.length;
+    }
+  }
+
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
@@ -102,7 +127,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text(widget.product.id!), const Stars(rating: 4)],
+              children: [Text(widget.product.id!), Stars(rating: avgRating)],
             ),
           ),
 
@@ -197,13 +222,16 @@ class _ProductDetailsState extends State<ProductDetails> {
 
           RatingBar.builder(
               direction: Axis.horizontal,
-              initialRating: 0,
+              initialRating: myRating,
               minRating: 1,
               itemCount: 5,
               itemPadding: const EdgeInsets.symmetric(horizontal: 4),
               itemBuilder: (context, _) =>
                   const Icon(Icons.star, color: GlobalVariables.secondaryColor),
-              onRatingUpdate: (rating) {})
+              onRatingUpdate: (rating) {
+                productDetailServices.rateProduct(
+                    context: context, product: widget.product, rating: rating);
+              })
         ],
       )),
     );
